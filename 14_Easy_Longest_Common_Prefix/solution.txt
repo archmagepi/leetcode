@@ -1,0 +1,43 @@
+Write a function to find the longest common prefix string amongst an array of strings.
+
+char* longestCommonPrefix(char** strs, int strsSize) {
+    int i = 0;
+    int j = 0;
+    char* answer = NULL;
+    
+    if (0 == strsSize)
+    {
+        answer = (char *)malloc(sizeof(char));
+        memset(answer, 0, strlen(answer) + 1);
+        return answer;
+    }
+    
+    if (1 == strsSize)
+    {
+        answer = (char *)malloc((strlen(strs[0]) + 1) * sizeof(char));
+        memset(answer, 0, strlen(answer) + 1);
+        memcpy(answer, strs[0], strlen(strs[0]));
+        return answer;
+    }
+    
+    for (i = 0; 0 != strs[0][i]; i++)
+    {
+        for (j = 1; j < strsSize; j++)
+        {
+            if ((0 != strs[j][i]) && (strs[j][i] == strs[0][i]))
+            {
+                continue;
+            }
+            else
+            {
+                goto end;
+            }
+        }
+    }
+    
+end:
+    answer = (char *)malloc((i + 1) * sizeof(char));
+    memset(answer, 0, strlen(answer) + 1);
+    memcpy(answer, strs[0], i);
+    return answer;
+}
